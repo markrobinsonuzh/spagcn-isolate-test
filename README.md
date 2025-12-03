@@ -1,6 +1,6 @@
-# Ancient Python 2.7 with virtualenv & Apptainer
+# Python 2.7 with virtualenv & Apptainer
 
-This project demonstrates how to bootstrap a legacy Python 2.7 environment
+This module demonstrates how to bootstrap a legacy Python 2.7 environment
 inside a container. This is ideal for archiving old scientific workflows or
 running legacy scripts on modern HPC clusters using Apptainer.
 
@@ -24,10 +24,15 @@ This approach provides:
 - **Separation of concerns**: Container provides environment, host provides code
 - **Easier debugging**: Scripts remain editable on the host
 
-Example production usage:
-```bash
-apptainer exec --bind /path/to/your/scripts:/mnt/scripts py27.sif python2.7 /mnt/scripts/your_legacy_script.py
-```
+
+## Quickstart: Complete Workflow
+
+For the complete omnibenchmark workflow with Python 2.7 legacy script support:
+
+### Prerequisites
+- **UV Package Manager**: Install from [Astral's UV](https://github.com/astral-sh/uv)
+- **Docker** (for building)  
+- **Apptainer/Singularity** (for execution)
 
 ## 1. Build the Docker Image
 
@@ -105,3 +110,32 @@ apptainer exec py27.sif python3 -c "import sys; print(sys.version)"
 ```
 3.12.12 (main, Nov 18 2025, 05:56:04) [GCC 14.2.0]
 ```
+
+### Quick Setup
+
+```bash
+# 1. Build Docker image
+make docker
+
+# 2. Convert to Apptainer SIF
+make sif
+
+# 3. Run omnibenchmark with UV-managed dependencies
+# but feel free to use any other env manager that floats your boat
+./run-omnibenchmark.py
+```
+
+This workflow provides:
+- **Modern Python 3.12**: For omnibenchmark/Snakemake compatibility
+- **Legacy Python 2.7**: For ancient scientific scripts
+- **Isolated Dependencies**: UV manages omnibenchmark, container manages Python 2.7 libs
+
+
+## Verify Results
+
+Check that your legacy script executed correctly:
+```bash
+cat out/single/module/default/module.test.txt
+```
+
+This should show the Python version and environment information from your legacy Python 2.7 script execution.
