@@ -1,7 +1,7 @@
 #!/bin/bash
 # Simple entrypoint that uses uv to install dependencies and executes the module script
 
-set -euo pipefail
+#set -euo pipefail
 
 # Install module dependencies using uv with the legacy Python version
 # Try mounted requirements first, fall back to baked-in version
