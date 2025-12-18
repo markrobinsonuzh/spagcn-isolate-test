@@ -16,4 +16,4 @@ cd $HOME
 
 # Execute the module script with the legacy Python version
 # Script is expected to be mounted in /mnt (current working directory from docker run)
-exec python-legacy /mnt/ob_run_component.py "$@"
+exec python-legacy ob_run_component.py "$@"
