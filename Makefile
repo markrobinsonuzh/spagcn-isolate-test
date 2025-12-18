@@ -14,7 +14,7 @@ UV_CACHE_DIR ?= $(HOME)/.cache/uv
 REGISTRY ?= docker.io/yourusername
 
 docker:
-	docker buildx build \
+	docker buildx build --no-cache \
 		--load \
 		--build-arg LEGACY_PYTHON_VERSION=$(LEGACY_PYTHON_VERSION) \
 		--build-arg BUILD_FROM_SOURCE=$(BUILD_FROM_SOURCE) \
@@ -25,7 +25,7 @@ docker-from-source:
 
 # Multi-arch build (requires pushing to registry)
 docker-multiarch:
-	docker buildx build \
+	docker buildx build --no-cache \
 		--platform linux/amd64,linux/arm64 \
 		--build-arg LEGACY_PYTHON_VERSION=$(LEGACY_PYTHON_VERSION) \
 		--build-arg BUILD_FROM_SOURCE=$(BUILD_FROM_SOURCE) \
